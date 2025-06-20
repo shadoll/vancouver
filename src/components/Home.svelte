@@ -429,9 +429,14 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--bg-color);
-        opacity: 0.35;
+        background: white;
+        opacity: 0.8;
         z-index: 1;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background::before {
+        background: var(--bg-color);
+        opacity: 0.5;
     }
 
     .area-card.has-background > * {
@@ -440,11 +445,21 @@
     }
 
     .area-card.has-background h3 {
+        color: #000000;
+        text-shadow: none;
+    }
+
+    .area-card.has-background p {
+        color: #000000;
+        text-shadow: none;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background h3 {
         color: #ffffff;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
-    .area-card.has-background p {
+    :global([data-theme="dark"]) .area-card.has-background p {
         color: #f8fafc;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
@@ -455,7 +470,29 @@
     }
 
     .area-card.has-background:hover::before {
+        background: black;
+        opacity: 0.15;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background:hover::before {
+        background: var(--bg-color);
         opacity: 0.25;
+    }
+
+    .area-card.has-background:hover h3 {
+        color: white;
+    }
+
+    .area-card.has-background:hover p {
+        color: white;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background:hover h3 {
+        color: #ffffff;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background:hover p {
+        color: #f8fafc;
     }
 
     .area-icon {
@@ -483,7 +520,7 @@
 
     .external-link {
         color: inherit;
-        text-decoration: none;
+        text-decoration: underline;
         display: inline-flex;
         align-items: center;
         gap: 0.25rem;
@@ -497,10 +534,28 @@
     }
 
     .area-card.has-background .external-link {
-        color: #ffffff;
+        color: #000000;
     }
 
     .area-card.has-background .external-link:hover {
+        color: #000000;
+        text-decoration: underline;
+    }
+
+    .area-card.has-background:hover .external-link {
+        color: white;
+    }
+
+    .area-card.has-background:hover .external-link:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background .external-link {
+        color: #ffffff;
+    }
+
+    :global([data-theme="dark"]) .area-card.has-background .external-link:hover {
         color: #e2e8f0;
         text-decoration: underline;
     }
