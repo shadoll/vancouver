@@ -343,7 +343,7 @@
         font-size: clamp(1.5rem, 4vw, 2.5rem);
         font-weight: 300;
         /* color: white; */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+        text-shadow: 1px 1px 2px #64748b;
         margin-bottom: 0.5rem;
         line-height: 1.2;
         text-align: center;
@@ -354,7 +354,7 @@
         font-size: clamp(2rem, 6vw, 4rem);
         font-weight: 800;
         /* color: white; */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+        text-shadow: 1px 1px 2px #64748b;
         margin-bottom: 0;
         margin-top: 0;
         line-height: 1.1;
