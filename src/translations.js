@@ -44,6 +44,7 @@ export const translations = {
     contact_title: 'Contact Information',
     manager_title: 'Oleksandr Svynar',
     office_address: 'Office Address:',
+    email: 'Email:',
     address: '01033, Ukraine, Kyiv, 48, 50A Zhylianska St., Office 13',
     phone: 'Phone: +38 050 465 46 18'
   },
@@ -92,6 +93,7 @@ export const translations = {
     contact_title: 'Контактна інформація',
     manager_title: 'Свинар Олександр',
     office_address: 'Адреса офісу:',
+    email: 'Електронна пошта:',
     address: '01033, Україна, м. Київ, вул. Жилянська, 48, 50А, офіс 13',
     phone: 'Телефон: +38 050 465 46 18'
   }

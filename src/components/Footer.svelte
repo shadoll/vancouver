@@ -19,6 +19,7 @@
           <p><strong>{t('manager_title', $language)}</strong></p>
           <p>{t('address', $language)}</p>
           <p>{t('phone', $language)}</p>
+          <p>{t('email', $language)} <a href="mailto:a.svynar@gmail.com">a.svynar@gmail.com</a></p>
         </div>
       </div>
     </div>
@@ -73,6 +74,17 @@
     color: var(--text-secondary);
     font-size: 0.875rem;
     line-height: 1.5;
+  }
+
+  .contact-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contact-info a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
   }
 
   .footer-bottom {
