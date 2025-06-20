@@ -16,8 +16,8 @@
     import energyBg from '/energy-background.jpg?url';
     import retailBg from '/retail-background.jpg?url';
     import officeBg from '/office-background.jpg?url';
-    import heroBgLight from '/hero-background.jpg?url';
-    import heroBgDark from '/hero-background.jpg?url';
+    import heroBgLight from '/hero-background-dark.jpg?url';
+    import heroBgDark from '/hero-background-dark.jpg?url';
 
     let mounted = false;
 
@@ -307,8 +307,7 @@
     }
 
     :global([data-theme="dark"]) .hero {
-        /* background-image: var(--hero-bg-dark); */
-        /* background-image: url('/hero-background-dark.svg'); */
+        background-image: var(--hero-bg-dark);
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
@@ -319,15 +318,21 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(
+        /* background: linear-gradient(
             168deg,
             var(--bg-color) 0%,
             transparent 50%,
             var(--bg-secondary) 100%
-        );
+        ); */
+        background: rgba(248, 250, 252, 0.8);
         opacity: 0.8;
         z-index: 1;
     }
+
+    :global([data-theme="dark"]) .hero::before {
+        background:  rgba(17, 24, 39, 1);
+    }
+
 
     .hero-content {
         position: relative;
@@ -337,8 +342,8 @@
     .hero-title {
         font-size: clamp(1.5rem, 4vw, 2.5rem);
         font-weight: 300;
-        color: white;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+        /* color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1); */
         margin-bottom: 0.5rem;
         line-height: 1.2;
         text-align: center;
@@ -348,8 +353,8 @@
     .hero-subtitle {
         font-size: clamp(2rem, 6vw, 4rem);
         font-weight: 800;
-        color: white;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+        /* color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1); */
         margin-bottom: 0;
         margin-top: 0;
         line-height: 1.1;
