@@ -38,7 +38,13 @@ jobs:
         NODE_ENV: production
 
     - name: List build output
-      run: ls -la dist/
+      run: |
+        echo "=== Dist directory contents ==="
+        ls -la dist/
+        echo "=== Assets directory contents ==="
+        ls -la dist/assets/ || echo "No assets directory"
+        echo "=== Looking for background images ==="
+        find dist/ -name "*background*" -type f || echo "No background files found"
 
     - name: Setup Pages
       uses: actions/configure-pages@v4

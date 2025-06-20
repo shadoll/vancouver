@@ -12,10 +12,21 @@
         ExternalLink,
     } from "lucide-svelte";
 
+    // Import background images for proper Vite processing
+    import energyBg from '/energy-background.jpg?url';
+    import retailBg from '/retail-background.jpg?url';
+    import officeBg from '/office-background.jpg?url';
+    import heroBgLight from '/hero-background.svg?url';
+    import heroBgDark from '/hero-background-dark.svg?url';
+
     let mounted = false;
 
     onMount(() => {
         mounted = true;
+
+        // Set CSS custom properties for background images
+        document.documentElement.style.setProperty('--hero-bg-light', `url('${heroBgLight}')`);
+        document.documentElement.style.setProperty('--hero-bg-dark', `url('${heroBgDark}')`);
 
         // Intersection Observer for scroll animations
         const observer = new IntersectionObserver(
@@ -46,7 +57,7 @@
             titleKey: "energy",
             descKey: "energy_desc",
             color: "#059669",
-            backgroundImage: "/energy-background.jpg",
+            backgroundImage: energyBg,
         },
         {
             icon: TreePine,
@@ -59,7 +70,7 @@
             titleKey: "retail",
             descKey: "retail_desc",
             color: "#dc2626",
-            backgroundImage: "/retail-background.jpg",
+            backgroundImage: retailBg,
         },
         {
             icon: Truck,
@@ -72,7 +83,7 @@
             titleKey: "real_estate",
             descKey: "real_estate_desc",
             color: "#d97706",
-            backgroundImage: "/office-background.jpg",
+            backgroundImage: officeBg,
         },
     ];
 
@@ -281,7 +292,7 @@
     /* Hero Section */
     .hero {
         padding: 6rem 0;
-        background-image: url("/hero-background.jpg");
+        background-image: var(--hero-bg-light);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -293,6 +304,7 @@
     }
 
     :global([data-theme="dark"]) .hero {
+        /* background-image: var(--hero-bg-dark); */
         /* background-image: url('/hero-background-dark.svg'); */
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
