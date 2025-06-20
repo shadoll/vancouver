@@ -1,0 +1,32 @@
+name: Setup GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      with:
+        enablement: true
+
+    - name: Create placeholder index.html
+      run: |
+        mkdir -p dist
+        echo '<h1>GitHub Pages Setup Complete</h1><p>Your site will be available soon.</p>' > dist/index.html
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './dist'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

@@ -58,7 +58,7 @@ make install
 # Start development server
 make dev
 
-# Build for production  
+# Build for production
 make build
 ```
 
@@ -104,6 +104,24 @@ The application supports light and dark themes with:
 - CSS custom properties for consistent theming
 
 ## 🚀 Deployment
+
+### GitHub Pages Setup
+
+Before the automatic deployment works, you need to configure GitHub Pages in your repository:
+
+1. **Enable GitHub Pages:**
+   - Go to your repository on GitHub
+   - Navigate to Settings → Pages
+   - Under "Source", select "GitHub Actions"
+
+2. **Run initial setup (optional):**
+   - Go to Actions tab in your repository
+   - Run the "Setup GitHub Pages" workflow manually
+   - This will initialize the Pages environment
+
+3. **Automatic deployment:**
+   - After setup, every push to `main` branch will automatically build and deploy
+   - The site will be available at `https://[username].github.io/vancouver/`
 
 ### GitHub Pages (Automatic)
 
