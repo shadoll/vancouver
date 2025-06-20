@@ -16,8 +16,8 @@
     import energyBg from '/energy-background.jpg?url';
     import retailBg from '/retail-background.jpg?url';
     import officeBg from '/office-background.jpg?url';
-    import heroBgLight from '/hero-background.svg?url';
-    import heroBgDark from '/hero-background-dark.svg?url';
+    import heroBgLight from '/hero-background.jpg?url';
+    import heroBgDark from '/hero-background.jpg?url';
 
     let mounted = false;
 
