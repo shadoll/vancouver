@@ -47,7 +47,10 @@
   <div class="container">
     <div class="header-content">
       <div class="logo">
-        <h1>{t('header_title', $language)}</h1>
+        <h1>
+          <span class="title-part1">{t('header_title_part1', $language)}</span>
+          <span class="title-part2">{t('header_title_part2', $language)}</span>
+        </h1>
       </div>
 
       <div class="header-controls">
@@ -121,6 +124,17 @@
     font-weight: 700;
     color: var(--primary-color);
     transition: color 0.3s ease;
+  }
+
+  .title-part1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .title-part2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-left: 0.5rem;
   }
 
   .header-controls {
@@ -223,6 +237,15 @@
 
     .logo h1 {
       font-size: 1.25rem;
+    }
+
+    .title-part1 {
+      font-size: 1rem;
+    }
+
+    .title-part2 {
+      font-size: 1.5rem;
+      margin-left: 0.25rem;
     }
 
     .current-lang,

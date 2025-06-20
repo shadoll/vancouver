@@ -7,9 +7,9 @@
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>{t('header_title', $language)}</h3>
+        <h3>{t('header_title_part1', $language)} {t('header_title_part2', $language)}</h3>
         <p class="footer-description">
-          {t('company_name', $language)}
+          {t('company_name', $language)} {t('header_title_part2', $language)}
         </p>
       </div>
 

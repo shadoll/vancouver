@@ -1,7 +1,8 @@
 export const translations = {
   en: {
-    header_title: 'Investment Fund «Vancouver»',
-    company_name: 'STOCK COMPANY CLOSED NON-DIVERSIFIED VENTURE CORPORATE INVESTMENT FUND "VANCOUVER"',
+    header_title_part1: 'Investment Fund',
+    header_title_part2: '«Vancouver»',
+    company_name: 'Stock company closed non-diversified venture corporate investment fund',
     description: 'We are a Ukrainian investment fund established in 2018. Over more than six years of operation, we have focused our investment strategy on the following key areas:',
     energy: 'Energy',
     energy_desc: 'Investing in renewable energy is a strategic focus of the Fund. In particular, we support the development of the {link}Hirskyi Wind Park{/link}, which generates clean electricity, reduces carbon emissions, and contributes to strengthening Ukraine’s energy independence in today’s complex geopolitical landscape.',
@@ -47,8 +48,9 @@ export const translations = {
     phone: 'Phone: +38 050 465 46 18'
   },
   uk: {
-    header_title: 'Інвестиційний фонд «Vancouver»',
-    company_name: 'Aкціонерне товариство закритий недиверсифікований венчурний корпоративний інвестиційний фонд "Vancouver"',
+    header_title_part1: 'Інвестиційний фонд',
+    header_title_part2: '«Vancouver»',
+    company_name: 'Aкціонерне товариство закритий недиверсифікований венчурний корпоративний інвестиційний фонд',
     description: 'Ми — український інвестиційний фонд, заснований у 2018 році. За понад шість років роботи ми зосередили свою інвестиційну стратегію на наступних ключових напрямках:',
     energy: 'Енергетика',
     energy_desc: 'Інвестиції у відновлювану енергетику є стратегічним напрямом діяльності Фонду. Зокрема, ми підтримуємо розвиток вітроелектростанції {link}Вітряний Парк Гірський{/link}, яка генерує чисту електроенергію, зменшує викиди вуглецю та сприяє зміцненню енергетичної незалежності України у складних геополітичних умовах.',

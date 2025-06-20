@@ -122,6 +122,9 @@
                 <h1 class="hero-title">
                     {t("company_name", $language)}
                 </h1>
+                <h2 class="hero-subtitle">
+                    {t("header_title_part2", $language)}
+                </h2>
             </div>
         </div>
     </section>
@@ -317,7 +320,7 @@
         right: 0;
         bottom: 0;
         background: linear-gradient(
-            135deg,
+            168deg,
             var(--bg-color) 0%,
             transparent 50%,
             var(--bg-secondary) 100%
@@ -333,10 +336,23 @@
 
     .hero-title {
         font-size: clamp(1.5rem, 4vw, 2.5rem);
-        font-weight: 700;
-        color: var(--primary-color);
-        margin-bottom: 0;
+        font-weight: 300;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+        margin-bottom: 0.5rem;
         line-height: 1.2;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 800;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+        margin-bottom: 0;
+        margin-top: 0;
+        line-height: 1.1;
         text-align: center;
         text-transform: uppercase;
     }
