@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Gradient for charts -->
+    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.2" />
+    </linearGradient>
+
+    <!-- Gradient for coins -->
+    <linearGradient id="coinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)" opacity="0.3"/>
+
+  <!-- Growing chart lines -->
+  <g transform="translate(50, 150)">
+    <!-- Chart 1 -->
+    <path d="M0,200 Q50,180 100,160 T200,120 T300,80 T400,40"
+          stroke="#10b981" stroke-width="4" fill="none" opacity="0.6"/>
+    <path d="M0,200 Q50,180 100,160 T200,120 T300,80 T400,40 L400,200 Z"
+          fill="url(#chartGradient)" opacity="0.3"/>
+
+    <!-- Chart 2 -->
+    <path d="M50,220 Q100,200 150,180 T250,140 T350,100 T450,60"
+          stroke="#3b82f6" stroke-width="3" fill="none" opacity="0.5"/>
+
+    <!-- Chart 3 -->
+    <path d="M100,230 Q150,210 200,190 T300,150 T400,110 T500,80"
+          stroke="#8b5cf6" stroke-width="3" fill="none" opacity="0.4"/>
+  </g>
+
+  <!-- Candlestick chart -->
+  <g transform="translate(600, 200)">
+    <!-- Candlesticks -->
+    <g opacity="0.4">
+      <!-- Green candles (bullish) -->
+      <rect x="20" y="80" width="12" height="40" fill="#10b981"/>
+      <line x1="26" y1="70" x2="26" y2="130" stroke="#10b981" stroke-width="2"/>
+
+      <rect x="50" y="60" width="12" height="50" fill="#10b981"/>
+      <line x1="56" y1="50" x2="56" y2="120" stroke="#10b981" stroke-width="2"/>
+
+      <rect x="80" y="40" width="12" height="60" fill="#10b981"/>
+      <line x1="86" y1="30" x2="86" y2="110" stroke="#10b981" stroke-width="2"/>
+
+      <rect x="110" y="30" width="12" height="45" fill="#10b981"/>
+      <line x1="116" y1="20" x2="116" y2="85" stroke="#10b981" stroke-width="2"/>
+
+      <!-- Red candles (bearish) -->
+      <rect x="140" y="50" width="12" height="35" fill="#ef4444"/>
+      <line x1="146" y1="45" x2="146" y2="90" stroke="#ef4444" stroke-width="2"/>
+
+      <rect x="170" y="45" width="12" height="40" fill="#10b981"/>
+      <line x1="176" y1="35" x2="176" y2="95" stroke="#10b981" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- Floating coins -->
+  <g opacity="0.3">
+    <!-- Coin 1 -->
+    <circle cx="200" cy="100" r="25" fill="url(#coinGradient)"/>
+    <text x="200" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#92400e">€</text>
+
+    <!-- Coin 2 -->
+    <circle cx="900" cy="150" r="20" fill="url(#coinGradient)"/>
+    <text x="900" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#92400e">$</text>
+
+    <!-- Coin 3 -->
+    <circle cx="750" cy="80" r="15" fill="url(#coinGradient)"/>
+    <text x="750" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400e">₴</text>
+  </g>
+
+  <!-- Numbers and statistics -->
+  <g opacity="0.2" font-family="Arial, sans-serif" fill="#64748b">
+    <text x="100" y="50" font-size="24" font-weight="bold">16.8M €</text>
+    <text x="300" y="70" font-size="18">+12.5%</text>
+    <text x="500" y="45" font-size="20" font-weight="bold">2018</text>
+    <text x="800" y="60" font-size="16">ROI: 8.2%</text>
+    <text x="950" y="90" font-size="14">Q1 2025</text>
+  </g>
+
+  <!-- Geometric shapes for modern touch -->
+  <g opacity="0.1">
+    <polygon points="150,400 200,350 250,400 200,450" fill="#3b82f6"/>
+    <polygon points="850,500 900,450 950,500 900,550" fill="#8b5cf6"/>
+    <circle cx="400" cy="500" r="30" fill="#10b981"/>
+    <rect x="600" y="450" width="40" height="40" rx="8" fill="#f59e0b"/>
+  </g>
+
+  <!-- Grid lines for professional look -->
+  <g opacity="0.1" stroke="#64748b" stroke-width="1">
+    <line x1="0" y1="150" x2="1200" y2="150"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="600"/>
+    <line x1="600" y1="0" x2="600" y2="600"/>
+    <line x1="800" y1="0" x2="800" y2="600"/>
+    <line x1="1000" y1="0" x2="1000" y2="600"/>
+  </g>
+</svg>

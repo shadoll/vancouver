@@ -74,9 +74,15 @@
         <p class="hero-description">
           {t('description', $language)}
         </p>
-        <div class="nav-value">
-          <strong>{t('nav_value', $language)}</strong>
-        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAV Value Section -->
+  <section class="nav-section scroll-animate">
+    <div class="container">
+      <div class="nav-value">
+        <strong>{t('nav_value', $language)}</strong>
       </div>
     </div>
   </section>
@@ -203,8 +209,36 @@
 
   /* Hero Section */
   .hero {
-    padding: 4rem 0;
-    background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+    padding: 6rem 0;
+    background-image: url('/hero-background.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+  }
+
+  :global([data-theme="dark"]) .hero {
+    background-image: url('/hero-background-dark.svg');
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--bg-color) 0%, transparent 50%, var(--bg-secondary) 100%);
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
   }
 
   .hero-title {
@@ -220,23 +254,35 @@
     font-size: 1.125rem;
     color: var(--text-secondary);
     line-height: 1.6;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     text-align: center;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
 
+  /* NAV Value Section */
+  .nav-section {
+    padding: 3rem 0;
+    background: var(--bg-color);
+  }
+
   .nav-value {
     text-align: center;
-    padding: 1.5rem;
-    background: var(--bg-color);
-    border: 2px solid var(--primary-color);
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     border-radius: 1rem;
-    font-size: 1.125rem;
-    color: var(--primary-color);
-    max-width: 600px;
+    font-size: 1.25rem;
+    color: white;
+    max-width: 700px;
     margin: 0 auto;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .nav-value:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 
   /* Investment Areas */
@@ -446,7 +492,17 @@
     }
 
     .hero {
+      padding: 4rem 0;
+      min-height: 400px;
+    }
+
+    .nav-section {
       padding: 2rem 0;
+    }
+
+    .nav-value {
+      padding: 1.5rem;
+      font-size: 1.125rem;
     }
 
     .section-title {
