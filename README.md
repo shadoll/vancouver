@@ -2,25 +2,31 @@
 
 A modern, responsive website for the Vancouver Investment Fund built with Svelte and Vite.
 
+## 🌐 Live Site
+
+Visit the official website at: **[https://vancouverinvest.com.ua](https://vancouverinvest.com.ua)**
+
 ## 🚀 Features
 
-- **Modern UI/UX**: Clean, professional design with smooth animations
+- **Modern UI/UX**: Clean, professional design with smooth animations and scroll effects
 - **Multilingual Support**: English and Ukrainian languages with automatic browser detection
-- **Theme Switching**: Light/dark mode with system preference detection
-- **Responsive Design**: Mobile-first approach, works on all devices
-- **Fast Performance**: Built with Vite for optimal loading speeds
+- **Theme Switching**: Light/dark/system mode with automatic detection and persistent preferences
+- **Responsive Design**: Mobile-first approach, optimized for all devices
+- **Fast Performance**: Built with Vite for optimal loading speeds and asset optimization
+- **Custom Domain**: Deployed at vancouverinvest.com.ua with SSL certificate
 - **Docker Support**: Easy development and deployment with Docker/Podman
-- **CI/CD Pipeline**: Automated deployment to GitHub Pages
-- **Component Architecture**: Reusable components for scalability
+- **CI/CD Pipeline**: Automated deployment to GitHub Pages with custom domain
+- **Component Architecture**: Reusable components for scalability and maintainability
 
 ## 🛠 Tech Stack
 
 - **Frontend**: Svelte 5 + Vite
-- **Styling**: CSS Custom Properties for theming
-- **Icons**: Lucide Svelte
+- **Styling**: CSS Custom Properties for theming with light/dark/system modes
+- **Icons**: Lucide Svelte for consistent iconography
 - **Routing**: Svelte SPA Router (ready for multi-page expansion)
-- **Deployment**: GitHub Pages via GitHub Actions
-- **Development**: Docker/Podman support
+- **Deployment**: GitHub Pages with custom domain (vancouverinvest.com.ua)
+- **Development**: Docker/Podman support with hot reload
+- **Assets**: Optimized background images and SVG graphics
 
 ## 🏃‍♂️ Quick Start
 
@@ -80,11 +86,20 @@ src/
 │   ├── Header.svelte   # Navigation with theme/language switchers
 │   ├── Footer.svelte   # Footer component
 │   └── Home.svelte     # Main page content
-├── stores.js           # Global state management
-├── translations.js     # Multi-language support
-├── app.css            # Global styles and CSS variables
+├── stores.js           # Global state management (theme, language)
+├── translations.js     # Multi-language support (EN/UK)
+├── app.css            # Global styles and CSS custom properties
 ├── App.svelte         # Root component
 └── main.js            # Application entry point
+
+public/
+├── CNAME              # Custom domain configuration
+├── hero-background.svg # Hero section background (light theme)
+├── hero-background-dark.svg # Hero section background (dark theme)
+├── energy-background.jpg # Investment area background
+├── retail-background.jpg # Investment area background
+├── office-background.jpg # Investment area background
+└── favicon.svg        # Site favicon
 ```
 
 ## 🌍 Internationalization
@@ -97,35 +112,54 @@ Language preferences are stored in localStorage and persist across sessions.
 
 ## 🎨 Theming
 
-The application supports light and dark themes with:
-- Automatic system preference detection
-- Manual theme switching
-- Persistent user preferences
-- CSS custom properties for consistent theming
+The application supports comprehensive theming with:
+- **System Detection**: Automatically detects user's system preference (light/dark)
+- **Manual Override**: Users can manually select light, dark, or system mode
+- **Persistent Preferences**: Theme choice is stored in localStorage
+- **CSS Custom Properties**: Consistent theming across all components
+- **Smooth Transitions**: Animated theme switching for better UX
+- **Responsive Design**: Optimized colors and contrasts for both themes
 
 ## 🚀 Deployment
 
-### GitHub Pages Setup
+### Custom Domain Setup
 
-Before the automatic deployment works, you need to configure GitHub Pages in your repository:
+The site is deployed at **[vancouverinvest.com.ua](https://vancouverinvest.com.ua)** with automatic SSL certificate.
 
-1. **Enable GitHub Pages:**
-   - Go to your repository on GitHub
-   - Navigate to Settings → Pages
-   - Under "Source", select "GitHub Actions"
+### GitHub Pages Configuration
 
-2. **Run initial setup (optional):**
-   - Go to Actions tab in your repository
-   - Run the "Setup GitHub Pages" workflow manually
-   - This will initialize the Pages environment
+The deployment is fully automated via GitHub Actions:
 
-3. **Automatic deployment:**
-   - After setup, every push to `main` branch will automatically build and deploy
-   - The site will be available at `https://[username].github.io/vancouver/`
+1. **Domain Configuration:**
+   - Custom domain: `vancouverinvest.com.ua`
+   - CNAME file automatically deployed
+   - SSL certificate provided by GitHub Pages
+
+2. **Automatic Deployment:**
+   - Triggered on every push to `main` branch
+   - Builds static assets with Vite
+   - Optimizes images and assets for production
+   - Deploys to GitHub Pages with custom domain
+
+3. **Build Process:**
+   - Installs dependencies with `npm ci`
+   - Builds production bundle with `npm run build`
+   - Uploads build artifacts to GitHub Pages
+   - Serves content from custom domain
+
+### Development & Production URLs
+
+- **Production**: [https://vancouverinvest.com.ua](https://vancouverinvest.com.ua)
+- **Development**: http://localhost:5173 (when running locally)
 
 ### GitHub Pages (Automatic)
 
-Push to the `main` branch to trigger automatic deployment to GitHub Pages via GitHub Actions.
+Push to the `main` branch to trigger automatic deployment with the following process:
+1. GitHub Actions builds the project
+2. Static files are generated in `dist/` directory
+3. Assets are optimized and processed by Vite
+4. Site is deployed to custom domain with SSL
+5. CNAME file ensures proper domain routing
 
 ### Manual Deployment
 
@@ -165,46 +199,16 @@ podman-compose up app
 
 ## 📝 Available Scripts
 
-- `make dev` - Start development server
-- `make build` - Build for production
-- `make prod` - Start production server
+- `make dev` - Start development server with hot reload
+- `make build` - Build for production with optimized assets
+- `make prod` - Start production server preview
 - `make dev-docker` - Start development with Docker
 - `make prod-docker` - Start production with Docker
-- `make clean` - Clean build files and dependencies
+- `make install` - Install dependencies in container
+- `make clean` - Clean build files and containers
+- `make stop` - Stop all running containers
 - `make help` - Show all available commands
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 
 This project is proprietary and confidential.
-
-## 📞 Contact
-
-Vancouver Investment Fund
-- Address: 01033, Ukraine, Kyiv, 48, 50A Zhylianska St., Office 13
-- Phone: +38 050 465 46 18
-- Manager: Oleksandr Viktorovych Svynar
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
