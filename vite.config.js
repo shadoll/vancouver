@@ -10,6 +10,17 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'terser',
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Keep SVG files and other images in the root for easier path resolution
+          if (assetInfo.name?.endsWith('.svg') || assetInfo.name?.endsWith('.jpg') || assetInfo.name?.endsWith('.png')) {
+            return '[name][extname]'
+          }
+          return 'assets/[name]-[hash][extname]'
+        }
+      }
+    }
   },
   server: {
     host: true,
