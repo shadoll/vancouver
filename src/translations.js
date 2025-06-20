@@ -22,7 +22,7 @@ export const translations = {
     team_title: 'Team',
     team_desc: 'Key persons responsible for the Fund\'s operations:',
     fund_manager: 'Fund Manager:',
-    manager_name: 'Oleksandr Viktorovych Svynar — an experienced finance and investment manager responsible for the overall strategy and asset management.',
+    manager_name: 'Oleksandr Svynar — an experienced finance and investment manager responsible for the overall strategy and asset management.',
     partners_title: 'Fund Partners',
     auditing_firm: 'Auditing firm:',
     auditing_name: 'LLC "AUDITING CENTER "INFORM-PLUS"',
@@ -41,7 +41,7 @@ export const translations = {
     valuer_address: 'Kyiv, 25 Lva Tolstoho St.',
     valuer_code: 'EDRPOU Code: 34289017',
     contact_title: 'Contact Information',
-    manager_title: 'Oleksandr Viktorovych Svynar',
+    manager_title: 'Oleksandr Svynar',
     office_address: 'Office Address:',
     address: '01033, Ukraine, Kyiv, 48, 50A Zhylianska St., Office 13',
     phone: 'Phone: +38 050 465 46 18'
@@ -88,7 +88,7 @@ export const translations = {
     valuer_address: 'м. Київ, вул. Льва Толстого, 25',
     valuer_code: 'Код ЄДРПОУ: 34289017',
     contact_title: 'Контактна інформація',
-    manager_title: 'Свинар Олександр Вікторович',
+    manager_title: 'Свинар Олександр',
     office_address: 'Адреса офісу:',
     address: '01033, Україна, м. Київ, вул. Жилянська, 48, 50А, офіс 13',
     phone: 'Телефон: +38 050 465 46 18'
