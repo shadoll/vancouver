@@ -1,5 +1,6 @@
 <script>
   import { theme, language } from '../stores.js';
+  import { t } from '../translations.js';
   import { Sun, Moon, Globe, Monitor } from 'lucide-svelte';
 
   let showLanguageMenu = false;
@@ -46,7 +47,7 @@
   <div class="container">
     <div class="header-content">
       <div class="logo">
-        <h1>Vancouver</h1>
+        <h1>{t('header_title', $language)}</h1>
       </div>
 
       <div class="header-controls">

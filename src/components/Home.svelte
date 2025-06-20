@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { language } from '../stores.js';
   import { t } from '../translations.js';
-  import { TrendingUp, Building2, TreePine, ShoppingCart, Truck, Users } from 'lucide-svelte';
+  import { TrendingUp, Building2, TreePine, ShoppingCart, Truck, Users, ExternalLink } from 'lucide-svelte';
 
   let mounted = false;
 
@@ -34,7 +34,8 @@
       icon: TrendingUp,
       titleKey: 'energy',
       descKey: 'energy_desc',
-      color: '#059669'
+      color: '#059669',
+      backgroundImage: '/energy-background.jpg'
     },
     {
       icon: TreePine,
@@ -43,24 +44,52 @@
       color: '#7c3aed'
     },
     {
-      icon: Building2,
-      titleKey: 'real_estate',
-      descKey: 'real_estate_desc',
-      color: '#d97706'
-    },
-    {
       icon: ShoppingCart,
       titleKey: 'retail',
       descKey: 'retail_desc',
-      color: '#dc2626'
+      color: '#dc2626',
+      backgroundImage: '/retail-background.jpg'
     },
     {
       icon: Truck,
       titleKey: 'wholesale',
       descKey: 'wholesale_desc',
       color: '#4f46e5'
+    },
+    {
+      icon: Building2,
+      titleKey: 'real_estate',
+      descKey: 'real_estate_desc',
+      color: '#d97706',
+      backgroundImage: '/office-background.jpg'
     }
   ];
+
+  const linkUrls = {
+    energy: 'https://hirsky.windpark.com.ua',
+    woodworking: 'https://www.slavforest.com.ua/',
+    retail: 'https://silpo.ua/'
+  };
+
+  function renderTextWithLinks(text, areaKey) {
+    if (!text.includes('{link}')) {
+      return text;
+    }
+
+    return text.split('{link}').map((part, index) => {
+      if (index === 0) return part;
+
+      const [linkText, ...rest] = part.split('{/link}');
+      const afterLink = rest.join('{/link}');
+
+      return {
+        beforeLink: '',
+        linkText: linkText,
+        afterLink: afterLink,
+        url: linkUrls[areaKey]
+      };
+    });
+  }
 </script>
 
 <main class="main" class:mounted>
@@ -71,9 +100,6 @@
         <h1 class="hero-title">
           {t('company_name', $language)}
         </h1>
-        <p class="hero-description">
-          {t('description', $language)}
-        </p>
       </div>
     </div>
   </section>
@@ -87,17 +113,39 @@
     </div>
   </section>
 
+  <!-- Description Section -->
+  <section class="description-section scroll-animate">
+    <div class="container">
+      <p class="description-text">
+        {t('description', $language)}
+      </p>
+    </div>
+  </section>
+
   <!-- Investment Areas -->
   <section class="investment-areas scroll-animate">
     <div class="container">
       <div class="areas-grid">
         {#each investmentAreas as area, index}
-          <div class="area-card" style="--delay: {index * 0.1}s">
+          <div class="area-card"
+               class:has-background={area.backgroundImage}
+               style="--delay: {index * 0.1}s; {area.backgroundImage ? `--bg-image: url('${area.backgroundImage}')` : ''}">
             <div class="area-icon" style="--icon-color: {area.color}">
               <svelte:component this={area.icon} size={32} />
             </div>
             <h3>{t(area.titleKey, $language)}</h3>
-            <p>{t(area.descKey, $language)}</p>
+            <p>
+              {#each renderTextWithLinks(t(area.descKey, $language), area.titleKey) as part}
+                {#if typeof part === 'string'}
+                  {part}
+                {:else}
+                  {part.beforeLink}<a href={part.url} target="_blank" rel="noopener noreferrer" class="external-link">
+                    {part.linkText}
+                    <ExternalLink size={14} />
+                  </a>{part.afterLink}
+                {/if}
+              {/each}
+            </p>
           </div>
         {/each}
       </div>
@@ -245,20 +293,10 @@
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
     line-height: 1.2;
     text-align: center;
-  }
-
-  .hero-description {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 0;
-    text-align: center;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    text-transform: uppercase;
   }
 
   /* NAV Value Section */
@@ -285,6 +323,23 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 
+  /* Description Section */
+  .description-section {
+    padding: 3rem 0;
+    background: var(--bg-secondary);
+  }
+
+  .description-text {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* Investment Areas */
   .investment-areas {
     padding: 4rem 0;
@@ -308,11 +363,51 @@
     animation-delay: var(--delay);
     opacity: 0;
     transform: translateY(20px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .area-card.has-background {
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .area-card.has-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-color);
+    opacity: 0.35;
+    z-index: 1;
+  }
+
+  .area-card.has-background > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .area-card.has-background h3 {
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .area-card.has-background p {
+    color: #f8fafc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 
   .area-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .area-card.has-background:hover::before {
+    opacity: 0.25;
   }
 
   .area-icon {
@@ -336,6 +431,30 @@
   .area-card p {
     color: var(--text-secondary);
     line-height: 1.6;
+  }
+
+  .external-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .external-link:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+  }
+
+  .area-card.has-background .external-link {
+    color: #ffffff;
+  }
+
+  .area-card.has-background .external-link:hover {
+    color: #e2e8f0;
+    text-decoration: underline;
   }
 
   /* Mission & Vision */
@@ -503,6 +622,14 @@
     .nav-value {
       padding: 1.5rem;
       font-size: 1.125rem;
+    }
+
+    .description-section {
+      padding: 2rem 0;
+    }
+
+    .description-text {
+      font-size: 1rem;
     }
 
     .section-title {

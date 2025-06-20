@@ -7,9 +7,9 @@
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>Vancouver Investment Fund</h3>
+        <h3>{t('header_title', $language)}</h3>
         <p class="footer-description">
-          {t('description', $language)}
+          {t('company_name', $language)}
         </p>
       </div>
 
