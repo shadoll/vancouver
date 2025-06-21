@@ -105,51 +105,132 @@
                     el.style.textShadow = '';
                 });
             });
-        };
-
-        // Device orientation effect for mobile
+        };        // Device orientation effect for mobile - only active card
         const handleDeviceOrientation = (e) => {
             if (window.innerWidth <= 768) {
-                const gamma = e.gamma || 0; // left/right tilt
-                const beta = e.beta || 0;   // front/back tilt
+                const gamma = e.gamma || 0; // left/right tilt (-90 to 90)
+                const beta = e.beta || 0;   // front/back tilt (-180 to 180)
 
+                // Limit the range and make it more subtle
+                const maxTilt = 10; // Maximum degrees
+                const rotateY = Math.max(-maxTilt, Math.min(maxTilt, gamma * 0.15));
+                const rotateX = Math.max(-maxTilt, Math.min(maxTilt, (beta - 90) * 0.08));
+
+                // Find the most visible card
+                let mostVisibleCard = null;
+                let bestVisibilityScore = 0;
+
+                areaCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+                    if (isVisible) {
+                        const viewportCenter = window.innerHeight / 2;
+                        const cardCenter = rect.top + rect.height / 2;
+                        const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
+                        const maxDistance = window.innerHeight / 2;
+                        const visibilityScore = 1 - (distanceFromCenter / maxDistance);
+
+                        if (visibilityScore > bestVisibilityScore) {
+                            bestVisibilityScore = visibilityScore;
+                            mostVisibleCard = card;
+                        }
+                    }
+                });
+
+                // Reset all cards first
                 areaCards.forEach(card => {
                     const textElements = card.querySelectorAll('h3, p');
                     textElements.forEach(el => {
-                        const rotateX = beta * 0.1;
-                        const rotateY = gamma * 0.1;
-                        el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                        el.style.textShadow = `${gamma * 0.1}px ${beta * 0.1}px ${Math.abs(gamma + beta) * 0.05}px rgba(0,0,0,0.3)`;
+                        if (!el.style.transform.includes('translateZ')) { // Don't override scroll effects
+                            el.style.transform = '';
+                            el.style.textShadow = '';
+                        }
                     });
                 });
-            }
-        };
 
-        // Scroll effect for mobile (alternative to device orientation)
+                // Apply orientation effect only to the most visible card
+                if (mostVisibleCard && bestVisibilityScore > 0.4) {
+                    const textElements = mostVisibleCard.querySelectorAll('h3, p');
+                    textElements.forEach(el => {
+                        // Combine with existing transform if present
+                        const currentTransform = el.style.transform;
+                        const orientationTransform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                        if (currentTransform && currentTransform.includes('perspective')) {
+                            // Merge with scroll effect
+                            el.style.transform = currentTransform.replace('perspective(1000px)', `perspective(1000px) ${orientationTransform}`);
+                        } else {
+                            el.style.transform = `perspective(1000px) ${orientationTransform} translateZ(5px)`;
+                        }
+
+                        if (!el.style.textShadow) {
+                            el.style.textShadow = `${rotateY * 0.2}px ${rotateX * 0.2}px ${Math.abs(rotateX + rotateY) * 0.1}px rgba(0,0,0,0.3)`;
+                        }
+                    });
+                }
+            }
+        };// Vertical scroll-based 3D effect for mobile - only active card
         const handleScroll = () => {
             if (window.innerWidth <= 768) {
-                const scrollY = window.scrollY;
+                let mostVisibleCard = null;
+                let bestVisibilityScore = 0;
+
+                // Find the card that's most centered in the viewport
                 areaCards.forEach((card, index) => {
                     const rect = card.getBoundingClientRect();
                     const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
                     if (isVisible) {
-                        const scrollProgress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                        const textElements = card.querySelectorAll('h3, p');
-                        textElements.forEach(el => {
-                            const translateX = Math.sin(scrollProgress * Math.PI + index) * 2;
-                            const translateY = Math.cos(scrollProgress * Math.PI + index) * 1;
-                            el.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
-                            el.style.textShadow = `${translateX}px ${translateY}px ${Math.abs(translateX + translateY) * 2}px rgba(0,0,0,0.2)`;
-                        });
+                        const viewportCenter = window.innerHeight / 2;
+                        const cardCenter = rect.top + rect.height / 2;
+                        const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
+
+                        // Calculate visibility score (closer to center = higher score)
+                        const maxDistance = window.innerHeight / 2;
+                        const visibilityScore = 1 - (distanceFromCenter / maxDistance);
+
+                        if (visibilityScore > bestVisibilityScore) {
+                            bestVisibilityScore = visibilityScore;
+                            mostVisibleCard = { card, index, rect, visibilityScore };
+                        }
                     }
                 });
+
+                // Reset all cards first
+                areaCards.forEach(card => {
+                    const textElements = card.querySelectorAll('h3, p');
+                    textElements.forEach(el => {
+                        el.style.transform = '';
+                        el.style.textShadow = '';
+                    });
+                });
+
+                // Apply effect only to the most visible card
+                if (mostVisibleCard && mostVisibleCard.visibilityScore > 0.3) { // Only if reasonably visible
+                    const { card, rect, visibilityScore } = mostVisibleCard;
+                    const viewportCenter = window.innerHeight / 2;
+                    const cardCenter = rect.top + rect.height / 2;
+                    const distanceFromCenter = cardCenter - viewportCenter;
+                    const normalizedDistance = distanceFromCenter / (window.innerHeight / 2);
+
+                    const textElements = card.querySelectorAll('h3, p');
+                    textElements.forEach(el => {
+                        // Enhanced effect for the active card
+                        const rotateX = normalizedDistance * 12; // More pronounced effect
+                        const translateZ = visibilityScore * 25; // Forward based on visibility
+                        const shadowIntensity = visibilityScore * 5;
+
+                        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) translateZ(${translateZ}px)`;
+                        el.style.textShadow = `0px ${shadowIntensity}px ${shadowIntensity * 2}px rgba(0,0,0,0.4)`;
+                    });
+                }
             }
         };
 
         // Add event listeners with optimized approach
         cardData.forEach(cardInfo => {
-            // Desktop mouse events
+            // Desktop mouse events only
             cardInfo.element.addEventListener('mouseenter', () => handleMouseEnter(cardInfo));
             cardInfo.element.addEventListener('mousemove', (e) => handleMouseMove(e, cardInfo));
             cardInfo.element.addEventListener('mouseleave', () => handleMouseLeave(cardInfo));
