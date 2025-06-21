@@ -16,6 +16,8 @@
     import energyBg from '/energy-background.jpg?url';
     import retailBg from '/retail-background.jpg?url';
     import officeBg from '/office-background.jpg?url';
+    import wholesaleBg from '/wholesale-background.jpg?url';
+    import woodworkingBg from '/woodworking-background.jpg?url';
     import heroBgLight from '/hero-background-dark.jpg?url';
     import heroBgDark from '/hero-background-dark.jpg?url';
 
@@ -64,6 +66,7 @@
             titleKey: "woodworking",
             descKey: "woodworking_desc",
             color: "#7c3aed",
+            backgroundImage: woodworkingBg,
         },
         {
             icon: ShoppingCart,
@@ -77,6 +80,7 @@
             titleKey: "wholesale",
             descKey: "wholesale_desc",
             color: "#4f46e5",
+            backgroundImage: wholesaleBg,
         },
         {
             icon: Building2,
