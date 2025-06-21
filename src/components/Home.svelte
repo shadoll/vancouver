@@ -48,8 +48,135 @@
         const sections = document.querySelectorAll(".scroll-animate");
         sections.forEach((section) => observer.observe(section));
 
+        // 3D effect for area cards - optimized version
+        const areaCards = document.querySelectorAll('.area-card');
+
+        // Cache elements for better performance
+        const cardData = Array.from(areaCards).map(card => ({
+            element: card,
+            textElements: card.querySelectorAll('h3, p'),
+            rect: null // Will be updated on mouse enter
+        }));
+
+        // Throttle function for performance
+        const throttle = (func, limit) => {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        };
+
+        // Optimized mouse movement effect
+        const handleMouseMove = throttle((e, cardInfo) => {
+            const rect = cardInfo.rect;
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const deltaX = (e.clientX - centerX) / rect.width;
+            const deltaY = (e.clientY - centerY) / rect.height;
+
+            const rotateX = deltaY * -8;
+            const rotateY = deltaX * 8;
+
+            // Use requestAnimationFrame for smooth animations
+            requestAnimationFrame(() => {
+                cardInfo.textElements.forEach(el => {
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+                    el.style.textShadow = `${deltaX * 4}px ${deltaY * 4}px ${Math.abs(deltaX + deltaY) * 8}px rgba(0,0,0,0.4)`;
+                });
+            });
+        }, 16); // ~60fps
+
+        const handleMouseEnter = (cardInfo) => {
+            // Update rect on mouse enter for accuracy
+            cardInfo.rect = cardInfo.element.getBoundingClientRect();
+        };
+
+        const handleMouseLeave = (cardInfo) => {
+            requestAnimationFrame(() => {
+                cardInfo.textElements.forEach(el => {
+                    el.style.transform = '';
+                    el.style.textShadow = '';
+                });
+            });
+        };
+
+        // Device orientation effect for mobile
+        const handleDeviceOrientation = (e) => {
+            if (window.innerWidth <= 768) {
+                const gamma = e.gamma || 0; // left/right tilt
+                const beta = e.beta || 0;   // front/back tilt
+
+                areaCards.forEach(card => {
+                    const textElements = card.querySelectorAll('h3, p');
+                    textElements.forEach(el => {
+                        const rotateX = beta * 0.1;
+                        const rotateY = gamma * 0.1;
+                        el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        el.style.textShadow = `${gamma * 0.1}px ${beta * 0.1}px ${Math.abs(gamma + beta) * 0.05}px rgba(0,0,0,0.3)`;
+                    });
+                });
+            }
+        };
+
+        // Scroll effect for mobile (alternative to device orientation)
+        const handleScroll = () => {
+            if (window.innerWidth <= 768) {
+                const scrollY = window.scrollY;
+                areaCards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+                    if (isVisible) {
+                        const scrollProgress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                        const textElements = card.querySelectorAll('h3, p');
+                        textElements.forEach(el => {
+                            const translateX = Math.sin(scrollProgress * Math.PI + index) * 2;
+                            const translateY = Math.cos(scrollProgress * Math.PI + index) * 1;
+                            el.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+                            el.style.textShadow = `${translateX}px ${translateY}px ${Math.abs(translateX + translateY) * 2}px rgba(0,0,0,0.2)`;
+                        });
+                    }
+                });
+            }
+        };
+
+        // Add event listeners with optimized approach
+        cardData.forEach(cardInfo => {
+            // Desktop mouse events
+            cardInfo.element.addEventListener('mouseenter', () => handleMouseEnter(cardInfo));
+            cardInfo.element.addEventListener('mousemove', (e) => handleMouseMove(e, cardInfo));
+            cardInfo.element.addEventListener('mouseleave', () => handleMouseLeave(cardInfo));
+        });
+
+        // Mobile events
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', handleDeviceOrientation);
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
         return () => {
             sections.forEach((section) => observer.unobserve(section));
+
+            // Clean up 3D effect event listeners
+            cardData.forEach(cardInfo => {
+                cardInfo.element.removeEventListener('mouseenter', () => handleMouseEnter(cardInfo));
+                cardInfo.element.removeEventListener('mousemove', (e) => handleMouseMove(e, cardInfo));
+                cardInfo.element.removeEventListener('mouseleave', () => handleMouseLeave(cardInfo));
+            });
+
+            if (window.DeviceOrientationEvent) {
+                window.removeEventListener('deviceorientation', handleDeviceOrientation);
+            }
+
+            window.removeEventListener('scroll', handleScroll);
         };
     });
 
@@ -438,6 +565,18 @@
         transform: translateY(20px);
         position: relative;
         overflow: hidden;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+    .area-card h3,
+    .area-card p {
+        transition: transform 0.1s ease-out, text-shadow 0.1s ease-out;
+        transform-style: preserve-3d;
+        will-change: transform, text-shadow;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0); /* Force hardware acceleration */
     }
 
     .area-card.has-background {
@@ -779,6 +918,21 @@
 
         .partners-grid {
             grid-template-columns: 1fr;
+        }
+
+        /* Mobile 3D effect optimizations */
+        .area-card {
+            perspective: 800px;
+        }
+
+        .area-card h3,
+        .area-card p {
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        /* Reduce 3D intensity on mobile for better performance */
+        .area-card:hover {
+            transform: translateY(-2px);
         }
     }
 </style>
